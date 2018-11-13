@@ -49,8 +49,8 @@ contract EthBondingCurvedToken is ERC20Detailed, ERC20 {
 
 contract EthPolynomialCurvedToken is EthBondingCurvedToken {
 
-    uint8 public exponent;
-    uint256 public slope;
+    uint256 public exponent;
+    uint256 public inverseSlope;
 
     /// @dev constructor        Initializes the bonding curve
     /// @param name             The name of the token
@@ -61,19 +61,21 @@ contract EthPolynomialCurvedToken is EthBondingCurvedToken {
         string name,
         string symbol,
         uint8 decimals,
-        uint8 _exponent,
-        uint256 _slope
+        uint256 _exponent,
+        uint256 _inverseSlope // Since we want the slope to be usually < 0 we take the inverse.
     ) EthBondingCurvedToken(name, symbol, decimals) public {
         exponent = _exponent;
-        slope = _slope;
+        inverseSlope = _inverseSlope;
     }
 
     /// @dev        Calculate the integral from 0 to t
     /// @param t    The number to integrate to
     function curveIntegral(uint256 t) internal returns (uint256) {
-        uint256 nexp = exponent + 1;
+        uint256 nexp = exponent.add(1);
+        uint256 norm = 10 ** (uint256(decimals()) * uint256(nexp)) - 18;
         // Calculate integral of t^exponent
-        return ((t ** nexp).div(nexp).div(slope)).div(10 ** uint256(decimals()));
+        return
+            (t ** nexp).div(nexp).div(inverseSlope).div(10 ** 18);
     }
 
     function priceToMint(uint256 numTokens) public view returns(uint256) {
