@@ -43,8 +43,8 @@ contract SquareRoot is ICurve {
         uint256 z = (x + 1) / 2;
         y = x;
         while (z < y) {
-        y = z;
-        z = (x / z + z) / 2;
+            y = z;
+            z = (x / z + z) / 2;
         }
     }
 }
