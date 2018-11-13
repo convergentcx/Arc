@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { EthPolynomialCurvedTokenInstance, SignInstance } from '../types/truffle-contracts';
+import { EthPolynomialCurvedTokenInstance } from '../types/truffle-contracts';
 
 import BN = require('bn.js');
 import Web3 = require('web3');
@@ -7,7 +7,6 @@ import Web3 = require('web3');
 declare const web3: Web3;
 
 const EthPolynomialCurvedToken = artifacts.require('EthPolynomialCurvedToken');
-const Sign = artifacts.require('Sign');
 
 const addDecimals = (numTokens: any) => {
   return web3.utils.toWei(String(numTokens), 'ether').toString();
@@ -19,7 +18,6 @@ const removeDecimals = (tokens: any) => {
 
 contract('Sign', ([owner, user1, user2]) => {
   let ethCurvedToken: EthPolynomialCurvedTokenInstance;
-  let sign: SignInstance;
 
   before(async () => {
     ethCurvedToken = await EthPolynomialCurvedToken.new(
@@ -40,18 +38,6 @@ contract('Sign', ([owner, user1, user2]) => {
 
     const invSlope = await ethCurvedToken.inverseSlope();
     expect(invSlope.eq(new BN(1000))).to.be.true;
-
-    sign = await Sign.new(ethCurvedToken.address);
-    expect(sign.address).to.exist;
-
-    const signOwner = await sign.owner();
-    expect(signOwner).to.equal(owner);
-
-    const curSign = await sign.sign();
-    expect(curSign).to.equal("0x" + "00".repeat(32));
-
-    const token = await sign.token();
-    expect(token).to.equal(ethCurvedToken.address);
   });
 
 
