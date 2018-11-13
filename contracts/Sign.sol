@@ -1,8 +1,9 @@
-pragma solidity 0.4.24;
+pragma solidity ^0.4.24;
 
-import "openzeppelin-solidity/contracts/token/ERC20/ERC20Detailed.sol";
-import "openzeppelin-solidity/contracts/token/ERC20/ERC20.sol";
-import "openzeppelin-solidity/contracts/math/SafeMath.sol";
+import "https://github.com/OpenZeppelin/openzeppelin-solidity/contracts/ownership/Ownable.sol";
+import "https://github.com/OpenZeppelin/openzeppelin-solidity/contracts/token/ERC20/ERC20Detailed.sol";
+import "https://github.com/OpenZeppelin/openzeppelin-solidity/contracts/token/ERC20/ERC20.sol";
+import "https://github.com/OpenZeppelin/openzeppelin-solidity/contracts/math/SafeMath.sol";
 
 contract EthBondingCurvedToken is ERC20Detailed, ERC20 {
     using SafeMath for uint256;
@@ -85,36 +86,49 @@ contract EthPolynomialCurvedToken is EthBondingCurvedToken {
     function rewardForBurn(uint256 numTokens) public view returns(uint256) {
         return poolBalance.sub(curveIntegral(totalSupply().sub(numTokens)));
     }
-
-    uint256 public adminBurned;
-
-    function adminBurn(uint256 numTokens) public returns (bool) {
-        require(balanceOf(msg.sender) > numTokens, "Must have sufficient amount of token to perform `adminBurn()`");
-        uint256 newAdminBurned = adminBurned.add(numTokens);
-        uint256 cliff = curveIntegral(newAdminBurned.sub(adminBurned));
-        msg.sender.transfer(cliff);
-        adminBurned = newAdminBurned;
-        return true;
-    }
 }
 
-contract Sign {
-    address public owner;
-    bytes32 public sign;
-    address public token;
+contract Convergent_Billboard is Ownable, EthPolynomialCurvedToken {
+    using SafeMath for uint256;
 
-    event SignChanged(bytes32 newSign);
+    uint256 cashed; // Amount of tokens that have been "cashed out."
+    uint256 requiredAmt = 1 * 10**18; // One token per banner change.
 
-    constructor(address _token) public {
-        owner = msg.sender;
-        token = _token;
+    event Advertisement(bytes32 what, uint256 indexed when);
+
+    constructor()
+        EthPolynomialCurvedToken(
+            "Convergent Billboard",
+            "CVRGNT_BILL",
+            18,
+            1,
+            1000
+        ) public
+    {}
+    
+    function purchaseAdvertisement(bytes32 _what) public payable {
+        mint(requiredAmt);
+        submit(_what);
     }
 
-    function changeSign(bytes32 _sign)
-        public returns (bool)
-    {   
-        ERC20(token).transferFrom(msg.sender, owner, 1);
-        sign = _sign;
-        emit SignChanged(sign);
+    function submit(bytes32 _what)
+        public
+    {
+        require(balanceOf(msg.sender) >= requiredAmt);
+
+        cashed++; // increment cashed counter
+        _transfer(msg.sender, address(0x1337), requiredAmt);
+
+        uint256 dec = 10**uint256(decimals());
+        uint256 newCliff = curveIntegral(
+            (cashed).mul(dec)
+        );
+        uint256 oldCliff = curveIntegral(
+            (cashed - 1).mul(dec)
+        );
+        uint256 cliffDiff = newCliff.sub(oldCliff);
+        owner().transfer(cliffDiff);
+
+        emit Advertisement(_what, block.timestamp);
     }
 }
