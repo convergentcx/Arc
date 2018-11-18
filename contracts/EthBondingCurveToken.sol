@@ -17,27 +17,31 @@ contract EthBondingCurvedToken is ERC20Detailed, ERC20 {
         string name,
         string symbol,
         uint8 decimals
-    ) ERC20Detailed(name, symbol, decimals) public {}
+    )   ERC20Detailed(name, symbol, decimals)
+        public
+    {}
 
-    function priceToMint(uint256 numTokens) public view returns(uint256);
+    function priceToMint(uint256 numTokens) public view returns (uint256);
 
-    function rewardForBurn(uint256 numTokens) public view returns(uint256);
+    function rewardForBurn(uint256 numTokens) public view returns (uint256);
 
     function mint(uint256 numTokens) public payable {
+        require(numTokens > 0, "Must purchase an amount greater than zero.");
+
         uint256 priceForTokens = priceToMint(numTokens);
-        require(msg.value >= priceForTokens);
+        require(msg.value >= priceForTokens, "Must send requisite amount to purchase.");
 
         _mint(msg.sender, numTokens);
         poolBalance = poolBalance.add(priceForTokens);
         if (msg.value > priceForTokens) {
-            msg.sender.transfer(msg.value - priceForTokens);
+            msg.sender.transfer(msg.value.sub(priceForTokens));
         }
 
         emit Minted(numTokens, priceForTokens);
     }
 
     function burn(uint256 numTokens) public {
-        require(balanceOf(msg.sender) >= numTokens);
+        require(balanceOf(msg.sender) >= numTokens, "Must have enough tokens to burn.");
 
         uint256 ethToReturn = rewardForBurn(numTokens);
         _burn(msg.sender, numTokens);

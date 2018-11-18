@@ -17,8 +17,10 @@ contract EthPolynomialCurvedToken is EthBondingCurvedToken {
         string symbol,
         uint8 decimals,
         uint256 _exponent,
-        uint256 _inverseSlope // Since we want the slope to be usually < 0 we take the inverse.
-    ) EthBondingCurvedToken(name, symbol, decimals) public {
+        uint256 _inverseSlope
+    )   EthBondingCurvedToken(name, symbol, decimals) 
+        public
+    {
         exponent = _exponent;
         inverseSlope = _inverseSlope;
     }

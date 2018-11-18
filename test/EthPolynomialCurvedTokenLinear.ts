@@ -40,6 +40,17 @@ contract('Sign', ([owner, user1, user2]) => {
     expect(invSlope.eq(new BN(1000))).to.be.true;
   });
 
+  it('Does not allow purchase of zero tokens', async () => {
+    try {
+      await ethCurvedToken.mint(0, {
+        from: user2,
+        value: web3.utils.toWei('1', 'ether'),
+      });
+    } catch (e) {
+      const expectedErrorStr = 'VM Exception while processing transaction: revert Must purchase an amount greater than zero.';
+      expect(e.toString().indexOf(expectedErrorStr)).to.not.equal(-1)
+    }
+  });
 
   it('Buying from the curve', async () => {
     const price = await ethCurvedToken.priceToMint(addDecimals(50));
@@ -87,12 +98,6 @@ contract('Sign', ([owner, user1, user2]) => {
     const reward = await ethCurvedToken.rewardForBurn(addDecimals(10));
     const reward2 = await ethCurvedToken.rewardForBurn(addDecimals(25));
     const reward3 = await ethCurvedToken.rewardForBurn(addDecimals(50));
-
-    // console.log(
-    //   removeDecimals(reward),
-    //   removeDecimals(reward2),
-    //   removeDecimals(reward3),
-    // );
 
     expect(removeDecimals(reward)).to.equal('0.45');
     expect(removeDecimals(reward2)).to.equal('0.9375');
