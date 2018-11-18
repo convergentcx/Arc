@@ -52,6 +52,17 @@ contract('Sign', ([owner, user1, user2]) => {
     }
   });
 
+  it('Does not allow burning of zero tokens', async () => {
+    try {
+      await ethCurvedToken.burn(0, {
+        from: user2,
+      });
+    } catch (e) {
+      const expectedErrorStr = 'VM Exception while processing transaction: revert Must burn an amount greater than zero.';
+      expect(e.toString().indexOf(expectedErrorStr)).to.not.equal(-1);
+    }
+  })
+
   it('Buying from the curve', async () => {
     const price = await ethCurvedToken.priceToMint(addDecimals(50));
     const price2 = await ethCurvedToken.priceToMint(addDecimals(100));

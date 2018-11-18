@@ -41,6 +41,7 @@ contract EthBondingCurvedToken is ERC20Detailed, ERC20 {
     }
 
     function burn(uint256 numTokens) public {
+        require(numTokens > 0, "Must burn an amount greater than zero.");
         require(balanceOf(msg.sender) >= numTokens, "Must have enough tokens to burn.");
 
         uint256 ethToReturn = rewardForBurn(numTokens);
