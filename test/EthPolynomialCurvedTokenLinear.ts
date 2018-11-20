@@ -4,17 +4,14 @@ import { EthPolynomialCurvedTokenInstance } from '../types/truffle-contracts';
 import BN = require('bn.js');
 import Web3 = require('web3');
 
+import {
+  addDecimals,
+  removeDecimals,
+} from './helpers';
+
 declare const web3: Web3;
 
 const EthPolynomialCurvedToken = artifacts.require('EthPolynomialCurvedToken');
-
-const addDecimals = (numTokens: any) => {
-  return web3.utils.toWei(String(numTokens), 'ether').toString();
-}
-
-const removeDecimals = (tokens: any) => {
-  return web3.utils.fromWei(tokens, 'ether').toString();
-}
 
 contract('EthPolynomialCurvedTokenLinear', ([owner, user1, user2]) => {
   let ethCurvedToken: EthPolynomialCurvedTokenInstance;

@@ -23,6 +23,7 @@ contract SpreadCBT is EthBondingCurvedToken {
     {
         buyExp = _be;
         sellExp = _se;
+        require(_bis <= _sis, "Must exist a higher buy curve than a sell curve.");
         buyInverseSlope = _bis;
         sellInverseSlope = _sis;
     }
@@ -54,5 +55,21 @@ contract SpreadCBT is EthBondingCurvedToken {
             sellExp,
             sellInverseSlope
         ));
+    }
+
+    function spread()
+        public view returns (uint256)
+    {
+        uint256 buyIntegral = integral(
+            totalSupply(),
+            buyExp,
+            buyInverseSlope
+        );
+        uint256 sellIntegral = integral(
+            totalSupply(),
+            sellExp,
+            sellInverseSlope
+        );
+        return buyIntegral.sub(sellIntegral);
     }
 }

@@ -9,10 +9,10 @@
   "scripts": {
     "compile:dapp": "yarn generate && cp build dapp/src -r",
     "dep": "node scripts/enforceStaticDeps.js",
-    "ganache": "ganache-cli -p 8577",
+    "ganache": "ganache-cli -p 8577 -e 1000000",
     "generate": "truffle compile && typechain --target truffle './build/**/*.json' && node scripts/patchTypechain.js",
     "test": "truffle test && yarn tsc",
-    "test:target": "truffle test test/EthPolynomialCurvedTokenLinear.ts",
+    "test:target": "truffle test test/SpreadCBT.ts",
     "tsc": "tsc --noEmit"
   },
   "repository": {
