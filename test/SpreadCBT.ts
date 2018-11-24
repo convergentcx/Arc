@@ -78,11 +78,11 @@ contract('SpreadCBT', ([owner, user1, user2]) => {
     const reward3 = await spreadCBT.rewardForBurn(addDecimals(50));
 
     const spread = await spreadCBT.spread();
-    console.log(removeDecimals(spread));
+    // console.log(removeDecimals(spread));
 
-    console.log(removeDecimals(reward))
-    console.log(removeDecimals(reward2))
-    console.log(removeDecimals(reward3))
+    // console.log(removeDecimals(reward))
+    // console.log(removeDecimals(reward2))
+    // console.log(removeDecimals(reward3))
   });
 
 });
