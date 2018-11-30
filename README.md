@@ -2,11 +2,25 @@
 
 # Arc
 
-[Bonding Curves](https://medium.com/@simondlr/tokens-2-0-curved-token-bonding-in-curation-markets-1764a2e0bee5) are a method of token issuance which allow for continuous liquidity of the token through
+[Bonding Curves](https://medium.com/@simondlr/tokens-2-0-curved-token-bonding-in-curation-markets-1764a2e0bee5) 
+are a method of token issuance which allow for continuous liquidity of the issued token through
 the maintenance of a reserve. External users are free to purchase or sell tokens _into_ the curve by
-submitting transactions to the bonding curve smart contract. The bonding curve will mint or burn new 
-tokens depending on the action external users wish to make. The name bonding curve comes from the fact
-that the price of the token will move on a determined path that can be plotted as a curve.
+submitting transactions to the bonding curve smart contract. The bonding curve will mint (buy) or 
+burn (sell) new tokens depending on the action external users make. The name bonding curve comes from
+the fact that the price of the token will move on a determined path that can be visually viewed as a curve.
+
+## Notes on Upgradability
+
+Arc uses [ZeppelinOS](https://github.com/zeppelinos/zos) to enable upgradibility in its contracts. For those
+not yet familiar with the proxy pattern, the contracts may look a bit strange at first. If you want to 
+make yourself more comfortable with how the upgrade pattern works check out the great post on Zeppelin's 
+[blog](https://blog.zeppelinos.org/proxy-patterns/).
+
+That the contracts contained in the Arc library can be upgraded does not mean that they will be,
+all users or end consumers will have to `opt-in` to an upgrade. The way to opt in to an upgrade is
+by changing the the logic contract for which the the proxy points at. For users of Arena, we are working
+on nice and intuitive UI components to allow for this. For developers who use Arc, it will require some
+knowledge on how to perform the action themselves. 
 
 ## Testing
 

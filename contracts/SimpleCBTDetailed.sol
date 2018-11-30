@@ -1,6 +1,6 @@
 pragma solidity ^0.4.24;
 
-import "openzeppelin-solidity/contracts/token/ERC20/ERC20Detailed.sol";
+import "openzeppelin-eth/contracts/token/ERC20/ERC20Detailed.sol";
 
 import "./SimpleCBT.sol";
 
@@ -11,6 +11,7 @@ contract SimpleCBTDetailed is SimpleCBT, ERC20Detailed {
         uint256 reserveRatio
     )   public
         SimpleCBT(reserveRatio)
-        ERC20Detailed(name, symbol, 18)
-    {}
+    {
+        initialize(name, symbol, 18);
+    }
 }

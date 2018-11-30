@@ -851,7 +851,7 @@ openzeppelin-eth@2.0.2:
   resolved "https://registry.yarnpkg.com/openzeppelin-eth/-/openzeppelin-eth-2.0.2.tgz#7aa169a64bd41b796aed485530aa19e6e5a3fc64"
   integrity sha512-gUdT24ozD5xXeB9tdTzHOYTpz7R1s0YVXhrYe5TSusiqP0YMqh97GB7Zugee2D6446cKxaE94BblgfgPNGaXRQ==
 
-openzeppelin-solidity@^2.0.0:
+openzeppelin-solidity@2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/openzeppelin-solidity/-/openzeppelin-solidity-2.0.0.tgz#b45dddbdae090f89577598c1a7e7518df61b7ba2"
   integrity sha512-SolpxQFArtiYnlSNg3dZ9sz0WVlKtPqSOcJkXRllaZp4+Lpfqz3vxF0yoh7g75TszKPyadqoJmU7+GM/vwh9SA==
@@ -1444,7 +1444,7 @@ yn@^2.0.0:
   resolved "https://registry.yarnpkg.com/yn/-/yn-2.0.0.tgz#e5adabc8acf408f6385fc76495684c88e6af689a"
   integrity sha1-5a2ryKz0CPY4X8dklWhMiOavaJo=
 
-zos-lib@2.0.1:
+zos-lib@^2.0.1:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/zos-lib/-/zos-lib-2.0.1.tgz#9566f631f4129c4104f3ca4f579c729ea031acce"
   integrity sha512-lXVv/84KDIgQm+ZcoD+b5eZXo82IRkwNqFeV12HYUk19G+UfxW9T+OtG4rnOHszxWeOf9jbLOKNgQUdb7MTejg==

@@ -1,6 +1,6 @@
 pragma solidity ^0.4.24;
 
-import "openzeppelin-solidity/contracts/ownership/Ownable.sol";
+import "openzeppelin-eth/contracts/ownership/Ownable.sol";
 
 contract MaxGasPrice is Ownable {
     uint256 public maxGasPrice = 1 * 10**18;

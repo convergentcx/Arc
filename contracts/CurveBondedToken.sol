@@ -2,9 +2,9 @@ pragma solidity ^0.4.24;
 
 // https://github.com/OpenZeppelin/
 
-import "openzeppelin-solidity/contracts/token/ERC20/ERC20.sol";
-import "openzeppelin-solidity/contracts/ownership/Ownable.sol";
-import "openzeppelin-solidity/contracts/math/SafeMath.sol";
+import "openzeppelin-eth/contracts/token/ERC20/ERC20.sol";
+import "openzeppelin-eth/contracts/ownership/Ownable.sol";
+import "openzeppelin-eth/contracts/math/SafeMath.sol";
 
 import "./Interface/IBondingCurve.sol";
 import "./BancorFormula.sol";

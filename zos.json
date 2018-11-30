@@ -2,5 +2,11 @@
   "zosversion": "2",
   "name": "convergent",
   "version": "0.1.0",
-  "contracts": {}
+  "contracts": {
+    "MyContract": "MyContract",
+    "MyLinkedContract": "MyLinkedContract"
+  },
+  "dependencies": {
+    "openzeppelin-eth": "^2.0.2"
+  }
 }

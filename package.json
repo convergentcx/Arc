@@ -10,10 +10,14 @@
     "compile:dapp": "yarn generate && cp build dapp/src -r",
     "dep": "node scripts/enforceStaticDeps.js",
     "ganache": "ganache-cli -p 8577 -e 1000000",
+    "ganache:determined": "ganache-cli --port 9545 --deterministic",
     "generate": "truffle compile && typechain --target truffle './build/**/*.json' && node scripts/patchTypechain.js",
     "test": "truffle test && yarn tsc",
     "test:target": "truffle test test/SpreadCBT.ts",
-    "tsc": "tsc --noEmit"
+    "tsc": "tsc --noEmit",
+    "zos:console": "npx truffle console --network zos",
+    "zos:dependencies": "zos push --deploy-dependencies",
+    "zos:session": "zos session --network local --from 0x1df62f291b2e969fb0849d99d9ce41e2f137006e --expires 3600"
   },
   "repository": {
     "type": "git",
@@ -46,6 +50,6 @@
     "ts-node": "7.0.1",
     "typechain": "0.3.6",
     "typescript": "3.1.3",
-    "zos-lib": "2.0.1"
+    "zos-lib": "^2.0.1"
   }
 }

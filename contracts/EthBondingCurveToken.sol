@@ -1,8 +1,8 @@
 pragma solidity ^0.4.24;
 
-import "openzeppelin-solidity/contracts/token/ERC20/ERC20Detailed.sol";
-import "openzeppelin-solidity/contracts/token/ERC20/ERC20.sol";
-import "openzeppelin-solidity/contracts/math/SafeMath.sol";
+import "openzeppelin-eth/contracts/token/ERC20/ERC20Detailed.sol";
+import "openzeppelin-eth/contracts/token/ERC20/ERC20.sol";
+import "openzeppelin-eth/contracts/math/SafeMath.sol";
 
 
 contract EthBondingCurvedToken is ERC20Detailed, ERC20 {
@@ -17,9 +17,10 @@ contract EthBondingCurvedToken is ERC20Detailed, ERC20 {
         string name,
         string symbol,
         uint8 decimals
-    )   ERC20Detailed(name, symbol, decimals)
-        public
-    {}
+    )   public
+    {
+        initialize(name, symbol, decimals);
+    }
 
     function priceToMint(uint256 numTokens) public view returns (uint256);
 
