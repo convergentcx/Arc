@@ -12,7 +12,9 @@ contract SimpleCBT is CurveBondedToken {
 
     constructor(uint256 _reserveRatio) public
         CurveBondedToken(_reserveRatio)
-    {}
+    {
+        initialize(msg.sender);
+    }
 
     function mint() public payable {
         require(msg.value > 0, "Must send ether to buy tokens.");
