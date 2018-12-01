@@ -1,11 +1,11 @@
 pragma solidity ^0.4.24;
 
-import "openzeppelin-eth/contracts/token/ERC20/ERC20Detailed.sol";
-import "openzeppelin-eth/contracts/token/ERC20/ERC20.sol";
 import "openzeppelin-eth/contracts/math/SafeMath.sol";
+import "openzeppelin-eth/contracts/token/ERC20/ERC20.sol";
+import "openzeppelin-eth/contracts/token/ERC20/ERC20Detailed.sol";
 
 
-contract EthBondingCurvedToken is ERC20Detailed, ERC20 {
+contract WithEtherReserve is ERC20Detailed, ERC20 {
     using SafeMath for uint256;
 
     uint256 public poolBalance;
