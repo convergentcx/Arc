@@ -1,32 +1,25 @@
 pragma solidity ^0.4.24;
 
-import "./EthBondingCurveToken.sol";
+import "./Reserve/WithEtherReserve.sol";
 
-contract EthPolynomialCurvedToken is EthBondingCurvedToken {
+contract Polynomial is WithEtherReserve {
 
     uint256 public exponent;
     uint256 public inverseSlope;
 
-    /// @dev constructor        Initializes the bonding curve
-    /// @param name             The name of the token
-    /// @param decimals         The number of decimals to use
-    /// @param symbol           The symbol of the token
-    /// @param _exponent        The exponent of the curve
     constructor(
         string name,
         string symbol,
         uint8 decimals,
         uint256 _exponent,
         uint256 _inverseSlope
-    )   EthBondingCurvedToken(name, symbol, decimals) 
+    )   WithEtherReserve(name, symbol, decimals) 
         public
     {
         exponent = _exponent;
         inverseSlope = _inverseSlope;
     }
 
-    /// @dev        Calculate the integral from 0 to t
-    /// @param t    The number to integrate to
     function curveIntegral(uint256 t) internal returns (uint256) {
         uint256 nexp = exponent.add(1);
         uint256 norm = 10 ** (uint256(decimals()) * uint256(nexp)) - 18;
