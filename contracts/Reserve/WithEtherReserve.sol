@@ -18,20 +18,20 @@ contract WithEtherReserve is ERC20Detailed, ERC20 {
         initializer
         public
     {
-        ERC20Details.initialize(name, symbl, decimals);
+        ERC20Detailed.initialize(name, symbol, decimals);
     }
 
     /**
      * Curve function interfaces */
 
-    function stakeAmt(uint256 newTokens) public view returns (uint256);
-    function withdrawAmt(uint256 spendTokens) public view returns (uint256);
+    function stakeAmt(uint256 _newTokens) public view returns (uint256);
+    function withdrawAmt(uint256 _spendTokens) public view returns (uint256);
 
     /**
      * stake and withdraw */
 
     function stake(uint256 newTokens)
-        public payable return (uint256 staked)
+        public payable returns (uint256 staked)
     {
         require(newTokens > 0, "Must request non-zero amount of tokens.");
 
@@ -51,7 +51,7 @@ contract WithEtherReserve is ERC20Detailed, ERC20 {
         emit CurveStake(newTokens, staked, block.timestamp);
     } 
     
-    function withdraw(spendTokens)
+    function withdraw(uint256 spendTokens)
         public returns (uint256 withdrawn)
     {
         require(spendTokens > 0, "Must spend non-zero amount of tokens.");
@@ -63,7 +63,7 @@ contract WithEtherReserve is ERC20Detailed, ERC20 {
         withdrawn = withdrawAmt(spendTokens);
         reserve = reserve.sub(withdrawn);
         _burn(msg.sender, spendTokens);
-        reserveToken.transfer(msg.sender, withdrawn);
+        msg.sender.transfer(withdrawn);
 
         emit CurveWithdraw(spendTokens, withdrawn, block.timestamp);
     }

@@ -1,8 +1,8 @@
 pragma solidity ^0.4.24;
 
-import "./EthBondingCurveToken.sol";
+import "./Reserve/WithEtherReserve.sol";
 
-contract SpreadCBT is EthBondingCurvedToken {
+contract SpreadCBT is WithEtherReserve {
 
     uint256 public buyExp;  // Buy exponent
     uint256 public sellExp; // Sell exponent
@@ -18,9 +18,9 @@ contract SpreadCBT is EthBondingCurvedToken {
         uint256 _be,
         uint256 _sis,
         uint256 _bis
-    )   EthBondingCurvedToken(name, symbol, decimals)
-        public
+    )   public
     {
+        initialize(name, symbol, decimals);
         buyExp = _be;
         sellExp = _se;
         require(_bis <= _sis, "Must exist a higher buy curve than a sell curve.");
@@ -44,13 +44,13 @@ contract SpreadCBT is EthBondingCurvedToken {
             totalSupply().add(numTokens),
             buyExp,
             buyInverseSlope
-        ).sub(poolBalance);
+        ).sub(reserve);
     }
 
     function rewardForBurn(uint256 numTokens)
         public view returns (uint256)
     {
-        return poolBalance.sub(integral(
+        return reserve.sub(integral(
             totalSupply().sub(numTokens),
             sellExp,
             sellInverseSlope

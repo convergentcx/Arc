@@ -13,9 +13,10 @@ contract Polynomial is WithEtherReserve {
         uint8 decimals,
         uint256 _exponent,
         uint256 _inverseSlope
-    )   WithEtherReserve(name, symbol, decimals) 
+    )   
         public
     {
+        initialize(name, symbol, decimals);
         exponent = _exponent;
         inverseSlope = _inverseSlope;
     }
@@ -29,10 +30,10 @@ contract Polynomial is WithEtherReserve {
     }
 
     function priceToMint(uint256 numTokens) public view returns(uint256) {
-        return curveIntegral(totalSupply().add(numTokens)).sub(poolBalance);
+        return curveIntegral(totalSupply().add(numTokens)).sub(reserve);
     }
 
     function rewardForBurn(uint256 numTokens) public view returns(uint256) {
-        return poolBalance.sub(curveIntegral(totalSupply().sub(numTokens)));
+        return reserve.sub(curveIntegral(totalSupply().sub(numTokens)));
     }
 }

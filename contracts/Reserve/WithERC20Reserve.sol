@@ -33,7 +33,7 @@ contract WithERC20Reserve is ERC20Detailed, ERC20 {
      * stake and withdraw */
     
     function stake(uint256 newTokens)
-        public return (uint256 staked)
+        public returns (uint256 staked)
     {
         require(newTokens > 0, "Must request non-zero amount of new tokens.");
 
@@ -50,7 +50,7 @@ contract WithERC20Reserve is ERC20Detailed, ERC20 {
     }
 
     function withdraw(uint256 spendTokens)
-        public return (uint256 withdrawn)
+        public returns (uint256 withdrawn)
     {
         require(spendTokens > 0, "Must spend non-zero amount of tokens.");
         require(
