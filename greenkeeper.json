@@ -1,0 +1,10 @@
+{
+  "groups": {
+    "default": {
+      "packages": [
+        "dapp/package.json",
+        "package.json"
+      ]
+    }
+  }
+}
