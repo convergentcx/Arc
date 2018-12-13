@@ -42,6 +42,7 @@ contract WithERC20Reserve is Initializable, ERC20, ERC20Detailed {
             "Sender does not have enough reserve tokens to stake!"
         );
 
+        reserveToken.transferFrom(msg.sender, address(this), staked);
         reserve = reserve.add(staked);
         _mint(msg.sender, newTokens);
 

@@ -3,6 +3,7 @@ import { MockERC20Instance, SpreadERC20Instance } from '../../types/truffle-cont
 
 import BN = require('bn.js');
 import Web3 = require('web3');
+import { isMainThread } from 'worker_threads';
 
 declare const web3: Web3;
 
@@ -76,10 +77,27 @@ contract('SpreadERC20', ([owner, user1, user2]) => {
       return logs.find((log: any) => log.event === event);
     }
 
-    const found = findEvent(stakeTx.logs, "CurveStake");
-    expect(found).to.exist;
+    const stakeEvent = findEvent(stakeTx.logs, "CurveStake");
+    expect(stakeEvent).to.exist;
 
-    expect(found.args.newTokens.toString()).to.equal(web3.utils.toWei('1', 'ether'));
+    expect(stakeEvent.args.newTokens.toString()).to.equal(web3.utils.toWei('1', 'ether'));
+    expect(web3.utils.fromWei(stakeEvent.args.nStaked.toString())).to.equal('0.0005');
 
-  })
+    const spreadEvent = findEvent(stakeTx.logs, "SpreadPayout");
+    expect(web3.utils.fromWei(spreadEvent.args.amount.toString())).to.equal('0.000083333333333334');
+
+    const tokenBalance = await spreadERC20.balanceOf(user1);
+    expect(tokenBalance.toString()).to.equal(web3.utils.toWei('1', 'ether'));
+  });
+
+  it('Allows for withdraw()', async () => {
+    const withdrawTx = await spreadERC20.withdraw(
+      web3.utils.toWei('1', 'ether'),
+      {
+        from: user1,
+      },
+    );
+
+    console.log(withdrawTx);
+  });
 })

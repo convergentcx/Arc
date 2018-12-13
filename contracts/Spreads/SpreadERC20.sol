@@ -13,6 +13,8 @@ contract SpreadERC20 is Initializable, Ownable, WithERC20Reserve {
     uint256 public buyInverseSlope;
     uint256 public sellInverseSlope;
 
+    event SpreadPayout(uint256 amount);
+
     function initialize(
         string name,
         string symbol,
@@ -76,7 +78,9 @@ contract SpreadERC20 is Initializable, Ownable, WithERC20Reserve {
         staked = super.stake(newTokens);
 
         uint256 spreadAfter = spread(totalSupply());
-        _transfer(msg.sender, owner(), spreadAfter.sub(spreadBefore));
+        uint256 spreadPayout = spreadAfter.sub(spreadBefore);
+        reserveToken.transferFrom(msg.sender, owner(), spreadPayout);
+        emit SpreadPayout(spreadPayout);
     }
 
     function withdrawAmt(uint256 numTokens)
