@@ -1,8 +1,8 @@
 pragma solidity ^0.4.24;
 
-import "./Reserve/WithEtherReserve.sol";
+import "../Reserve/WithEtherReserve.sol";
 
-contract SpreadCBT is WithEtherReserve {
+contract Spread is WithEtherReserve {
 
     uint256 public buyExp;  // Buy exponent
     uint256 public sellExp; // Sell exponent
@@ -47,6 +47,17 @@ contract SpreadCBT is WithEtherReserve {
         ).sub(reserve);
     }
 
+    /// Overwrite
+    function stake(uint256 newTokens)
+        public payable returns (uint256 staked)
+    {
+        uint256 spreadBefore = spread(totalSupply());
+        staked = super.stake(newTokens);
+
+        uint256 spreadAfter = spread(totalSupply());
+        address(this).transfer(spreadAfter.sub(spreadBefore));
+    }
+
     function rewardForBurn(uint256 numTokens)
         public view returns (uint256)
     {
@@ -57,16 +68,16 @@ contract SpreadCBT is WithEtherReserve {
         ));
     }
 
-    function spread()
+    function spread(uint256 _at)
         public view returns (uint256)
     {
         uint256 buyIntegral = integral(
-            totalSupply(),
+            _at,
             buyExp,
             buyInverseSlope
         );
         uint256 sellIntegral = integral(
-            totalSupply(),
+            _at,
             sellExp,
             sellInverseSlope
         );
