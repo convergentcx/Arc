@@ -37,7 +37,7 @@ contract Spread is WithEtherReserve {
         return (_t ** nexp).div(nexp).div(_inverseSlope).div(10**18);
     }
 
-    function priceToMint(uint256 numTokens)
+    function stakeAmt(uint256 numTokens)
         public view returns (uint256)
     {
         return integral(
@@ -58,7 +58,7 @@ contract Spread is WithEtherReserve {
         address(this).transfer(spreadAfter.sub(spreadBefore));
     }
 
-    function rewardForBurn(uint256 numTokens)
+    function withdrawAmt(uint256 numTokens)
         public view returns (uint256)
     {
         return reserve.sub(integral(

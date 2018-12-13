@@ -58,7 +58,7 @@ contract SpreadERC20 is Initializable, Ownable, WithERC20Reserve {
         return buyIntegral.sub(sellIntegral);
     }
 
-    function priceToMint(uint256 numTokens)
+    function stakeAmt(uint256 numTokens)
         public view returns (uint256)
     {
         return integral(
@@ -76,10 +76,10 @@ contract SpreadERC20 is Initializable, Ownable, WithERC20Reserve {
         staked = super.stake(newTokens);
 
         uint256 spreadAfter = spread(totalSupply());
-        _transfer(address(this), owner(), spreadAfter.sub(spreadBefore));
+        _transfer(msg.sender, owner(), spreadAfter.sub(spreadBefore));
     }
 
-    function rewardForBurn(uint256 numTokens)
+    function withdrawAmt(uint256 numTokens)
         public view returns (uint256)
     {
         return reserve.sub(integral(
