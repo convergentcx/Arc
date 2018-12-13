@@ -4,8 +4,8 @@ import "../Reserve/WithEtherReserve.sol";
 
 contract Spread is WithEtherReserve {
 
-    uint256 public buyExp;  // Buy exponent
-    uint256 public sellExp; // Sell exponent
+    uint256 public buyExponent;
+    uint256 public sellExponent;
 
     uint256 public buyInverseSlope;
     uint256 public sellInverseSlope;
@@ -21,8 +21,8 @@ contract Spread is WithEtherReserve {
     )   public
     {
         initialize(name, symbol, decimals);
-        buyExp = _be;
-        sellExp = _se;
+        buyExponent = _be;
+        sellExponent = _se;
         require(_bis <= _sis, "Must exist a higher buy curve than a sell curve.");
         buyInverseSlope = _bis;
         sellInverseSlope = _sis;
@@ -42,7 +42,7 @@ contract Spread is WithEtherReserve {
     {
         return integral(
             totalSupply().add(numTokens),
-            buyExp,
+            buyExponent,
             buyInverseSlope
         ).sub(reserve);
     }
@@ -63,7 +63,7 @@ contract Spread is WithEtherReserve {
     {
         return reserve.sub(integral(
             totalSupply().sub(numTokens),
-            sellExp,
+            sellExponent,
             sellInverseSlope
         ));
     }
@@ -73,12 +73,12 @@ contract Spread is WithEtherReserve {
     {
         uint256 buyIntegral = integral(
             _at,
-            buyExp,
+            buyExponent,
             buyInverseSlope
         );
         uint256 sellIntegral = integral(
             _at,
-            sellExp,
+            sellExponent,
             sellInverseSlope
         );
         return buyIntegral.sub(sellIntegral);

@@ -5,7 +5,7 @@ import "zos-lib/contracts/Initializable.sol";
 
 import "../Reserve/WithERC20Reserve.sol";
 
-contract SpreadERC20 is WithERC20Reserve, Ownable, Initializable {
+contract SpreadERC20 is Initializable, Ownable, WithERC20Reserve {
 
     uint256 public buyExponent;
     uint256 public sellExponent;
@@ -42,17 +42,17 @@ contract SpreadERC20 is WithERC20Reserve, Ownable, Initializable {
         return (_d ** nexp).div(nexp).div(_inverseSlope).div(10**18);
     }
 
-    function spread()
+    function spread(uint256 _x)
         public view returns (uint256)
     {
         uint256 buyIntegral = integral(
-            totalSupply(),
-            buyExp,
+            _x,
+            buyExponent,
             buyInverseSlope
         );
         uint256 sellIntegral = integral(
-            totalSupply(),
-            sellExp,
+            _x,
+            sellExponent,
             sellInverseSlope
         );
         return buyIntegral.sub(sellIntegral);
@@ -62,7 +62,7 @@ contract SpreadERC20 is WithERC20Reserve, Ownable, Initializable {
         public view returns (uint256)
     {
         return integral(
-            totalSupply.add(numTokens),
+            totalSupply().add(numTokens),
             buyExponent,
             buyInverseSlope
         ).sub(reserve);
@@ -76,7 +76,7 @@ contract SpreadERC20 is WithERC20Reserve, Ownable, Initializable {
         staked = super.stake(newTokens);
 
         uint256 spreadAfter = spread(totalSupply());
-        _transfer(address(this), owner, spreadAfter.sub(spreadBefore));
+        _transfer(address(this), owner(), spreadAfter.sub(spreadBefore));
     }
 
     function rewardForBurn(uint256 numTokens)

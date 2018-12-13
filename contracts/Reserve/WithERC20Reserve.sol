@@ -5,8 +5,7 @@ import "openzeppelin-eth/contracts/token/ERC20/ERC20.sol";
 import "openzeppelin-eth/contracts/token/ERC20/ERC20Detailed.sol";
 import "zos-lib/contracts/Initializable.sol";
 
-
-contract WithERC20Reserve is ERC20Detailed, ERC20, Initializeable {
+contract WithERC20Reserve is Initializable, ERC20, ERC20Detailed {
     using SafeMath for uint256;
 
     ERC20 public reserveToken;
@@ -20,7 +19,6 @@ contract WithERC20Reserve is ERC20Detailed, ERC20, Initializeable {
         public
     {
         ERC20Detailed.initialize(name, symbol, decimals);
-        Owner.initialize(msg.sender);
         reserveToken = ERC20(_reserveToken);
     }
 
