@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/convergentcx/Arc.svg?branch=master)](https://travis-ci.org/convergentcx/Arc)
+[![Build Status](https://travis-ci.org/convergentcx/Arc.svg?branch=master)](https://travis-ci.org/convergentcx/Arc) [![Greenkeeper badge](https://badges.greenkeeper.io/convergentcx/Arc.svg)](https://greenkeeper.io/)
 
 # Arc
 
