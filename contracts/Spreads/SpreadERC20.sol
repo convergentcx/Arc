@@ -79,7 +79,8 @@ contract SpreadERC20 is Initializable, Ownable, WithERC20Reserve {
 
         uint256 spreadAfter = spread(totalSupply());
         uint256 spreadPayout = spreadAfter.sub(spreadBefore);
-        reserveToken.transferFrom(msg.sender, owner(), spreadPayout);
+        reserve = reserve.sub(spreadPayout);
+        reserveToken.transfer(owner(), spreadPayout);
         emit SpreadPayout(spreadPayout);
     }
 
