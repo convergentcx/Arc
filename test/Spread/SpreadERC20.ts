@@ -4,6 +4,8 @@ import { MockERC20Instance, SpreadERC20Instance } from '../../types/truffle-cont
 import BN = require('bn.js');
 import Web3 = require('web3');
 
+import { findEvent } from '../helpers';
+
 declare const web3: Web3;
 
 const MockERC20 = artifacts.require('MockERC20');
@@ -76,10 +78,6 @@ contract('SpreadERC20', ([owner, user1, user2]) => {
       }
     );
 
-    const findEvent = (logs: any, event: string) => {
-      return logs.find((log: any) => log.event === event);
-    }
-
     const stakeEvent = findEvent(stakeTx.logs, "CurveStake");
     expect(stakeEvent).to.exist;
 
@@ -118,13 +116,31 @@ contract('SpreadERC20', ([owner, user1, user2]) => {
       (await spreadERC20.withdrawAmt(web3.utils.toWei('1', 'ether'))).toString()
     ).to.equal(shouldHaveReserved.toString());
 
-    // const withdrawTx = await spreadERC20.withdraw(
-    //   web3.utils.toWei('1', 'ether'),
-    //   {
-    //     from: user1,
-    //   },
-    // );
+    const withdrawTx = await spreadERC20.withdraw(
+      web3.utils.toWei('1', 'ether'),
+      {
+        from: user1,
+      },
+    );
 
-    // console.log(withdrawTx);
+    // Sanity
+    expect(withdrawTx.receipt).to.exist;
+
+    const withdrawEvent = findEvent(withdrawTx.logs, "CurveWithdraw");
+    expect(withdrawEvent).to.exist;
+
+    expect(withdrawEvent.args.spentTokens.toString()).to.equal(toWei('1', 'ether'));
+    expect(withdrawEvent.args.nWithdrawn.toString()).to.equal(shouldHaveReserved.toString());
+
+    // Check user1 balance of spread token === 0
+    const tokenBalance = await spreadERC20.balanceOf(user1)
+    expect(tokenBalance.toString()).to.equal('0')
+
+    // Check bonding curve reserve === 0 and balance === 0
+    const reserve = await spreadERC20.reserve();
+    expect(reserve.toString()).to.equal('0');
+
+    const bcBalance = await mockERC20.balanceOf(spreadERC20.address);
+    expect(bcBalance.toString()).to.equal('0');
   });
 })

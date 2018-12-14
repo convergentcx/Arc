@@ -9,3 +9,7 @@ export const addDecimals = (numTokens: any) => {
 export const removeDecimals = (tokens: any) => {
   return web3.utils.fromWei(tokens, 'ether').toString();
 }
+
+export const findEvent = (logs: any, event: string) => {
+  return logs.find((log: any) => log.event === event);
+}
