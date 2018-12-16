@@ -3,16 +3,16 @@ pragma solidity ^0.4.24;
 import "openzeppelin-eth/contracts/math/SafeMath.sol";
 import "openzeppelin-eth/contracts/token/ERC20/ERC20.sol";
 import "openzeppelin-eth/contracts/token/ERC20/ERC20Detailed.sol";
-// import "zos-lib/contracts/Initializable.sol";
+import "zos-lib/contracts/Initializable.sol";
 
 
-contract WithEtherReserve is ERC20Detailed, ERC20 {
+contract WithEtherReserve is Initializable, ERC20, ERC20Detailed {
     using SafeMath for uint256;
 
     uint256 public reserve;
 
-    event CurveStake(uint256 newTokens, uint256 nStaked, uint256 indexed when);
-    event CurveWithdraw(uint256 spentTokens, uint256 nWithdrawn, uint256 indexed when);
+    event CurveBuy(uint256 newTokens, uint256 paid, uint256 indexed when);
+    event CurveSell(uint256 spentTokens, uint256 rewarded, uint256 indexed when);
 
     function initialize(string name, string symbol, uint8 decimals)
         initializer
@@ -24,47 +24,47 @@ contract WithEtherReserve is ERC20Detailed, ERC20 {
     /**
      * Curve function interfaces */
 
-    function stakeAmt(uint256 _newTokens) public view returns (uint256);
-    function withdrawAmt(uint256 _spendTokens) public view returns (uint256);
+    function price(uint256 tokens) public view returns (uint256 thePrice);
+    function reward(uint256 tokens) public view returns (uint256 theReward);
 
     /**
      * stake and withdraw */
 
-    function stake(uint256 newTokens)
-        public payable returns (uint256 staked)
+    function buy(uint256 tokens)
+        public payable returns (uint256 paid)
     {
-        require(newTokens > 0, "Must request non-zero amount of tokens.");
+        require(tokens > 0, "Must request non-zero amount of tokens.");
 
-        staked = stakeAmt(newTokens);
+        paid = price(tokens);
         require(
-            msg.value >= staked,
-            "Sender does not have enough ether to stake!"
+            msg.value >= paid,
+            "Sender does not have enough ether to buy!"
         );
 
-        reserve = reserve.add(staked);
-        _mint(msg.sender, newTokens);
+        reserve = reserve.add(paid);
+        _mint(msg.sender, tokens);
         // extra funds handling
-        if (msg.value > staked) {
-            msg.sender.transfer(msg.value.sub(staked));
+        if (msg.value > paid) {
+            msg.sender.transfer(msg.value.sub(paid));
         }
 
-        emit CurveStake(newTokens, staked, block.timestamp);
+        emit CurveBuy(tokens, paid, block.timestamp);
     } 
     
-    function withdraw(uint256 spendTokens)
-        public returns (uint256 withdrawn)
+    function withdraw(uint256 tokens)
+        public returns (uint256 rewarded)
     {
-        require(spendTokens > 0, "Must spend non-zero amount of tokens.");
+        require(tokens > 0, "Must spend non-zero amount of tokens.");
         require(
-            balanceOf(msg.sender) >= spendTokens,
+            balanceOf(msg.sender) >= tokens,
             "Sender does not have enough tokens to spend."
         );
 
-        withdrawn = withdrawAmt(spendTokens);
-        reserve = reserve.sub(withdrawn);
-        _burn(msg.sender, spendTokens);
-        msg.sender.transfer(withdrawn);
+        rewarded = reward(tokens);
+        reserve = reserve.sub(rewarded);
+        _burn(msg.sender, tokens);
+        msg.sender.transfer(rewarded);
 
-        emit CurveWithdraw(spendTokens, withdrawn, block.timestamp);
+        emit CurveSell(tokens, rewarded, block.timestamp);
     }
 }
