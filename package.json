@@ -13,7 +13,7 @@
     "ganache:determined": "ganache-cli --port 9545 --deterministic",
     "generate": "truffle compile && typechain --target truffle './build/**/*.json' && node scripts/patchTypechain.js",
     "test": "truffle test && yarn tsc",
-    "test:target": "truffle test test/Spread/SpreadERC20.ts",
+    "test:target": "truffle test test/Spread/SpreadEther.ts",
     "tsc": "tsc --noEmit",
     "zos:console": "npx truffle console --network zos",
     "zos:dependencies": "zos push --deploy-dependencies",

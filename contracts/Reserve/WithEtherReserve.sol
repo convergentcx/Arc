@@ -11,8 +11,8 @@ contract WithEtherReserve is Initializable, ERC20, ERC20Detailed {
 
     uint256 public reserve;
 
-    event CurveBuy(uint256 newTokens, uint256 paid, uint256 indexed when);
-    event CurveSell(uint256 spentTokens, uint256 rewarded, uint256 indexed when);
+    event CurveBuy(uint256 amount, uint256 paid, uint256 indexed when);
+    event CurveSell(uint256 amount, uint256 rewarded, uint256 indexed when);
 
     function initialize(string name, string symbol, uint8 decimals)
         initializer
@@ -38,7 +38,7 @@ contract WithEtherReserve is Initializable, ERC20, ERC20Detailed {
         paid = price(tokens);
         require(
             msg.value >= paid,
-            "Sender does not have enough ether to buy!"
+            "Did not send enough ether to buy!"
         );
 
         reserve = reserve.add(paid);
@@ -51,7 +51,7 @@ contract WithEtherReserve is Initializable, ERC20, ERC20Detailed {
         emit CurveBuy(tokens, paid, block.timestamp);
     } 
     
-    function withdraw(uint256 tokens)
+    function sell(uint256 tokens)
         public returns (uint256 rewarded)
     {
         require(tokens > 0, "Must spend non-zero amount of tokens.");

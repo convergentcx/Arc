@@ -26,7 +26,7 @@ contract('SpreadERC20', ([owner, user1, user2]) => {
     expect(mockERC20.address).to.exist;
 
     spreadERC20 = await SpreadERC20.new();
-    spreadERC20.initialize(
+    await spreadERC20.initialize(
       "Logan Coin",
       "LOGAN",
       18,
