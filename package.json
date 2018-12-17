@@ -45,7 +45,7 @@
     "@types/web3": "1.0.14",
     "bn.js": "4.11.8",
     "chai": "4.2.0",
-    "ganache-cli": "6.2.3",
+    "ganache-cli": "6.2.4",
     "openzeppelin-solidity": "2.0.0",
     "truffle": "5.0.0-next.12",
     "truffle-typings": "1.0.5",
