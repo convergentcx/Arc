@@ -1391,10 +1391,10 @@ truffle-resolver@^4.0.4:
     truffle-expect "^0.0.4"
     truffle-provisioner "^0.1.1"
 
-truffle-typings@1.0.5:
-  version "1.0.5"
-  resolved "https://registry.yarnpkg.com/truffle-typings/-/truffle-typings-1.0.5.tgz#511e324397843e27c76451304874267cbadc74cb"
-  integrity sha512-mHkUwuoXBvPMzwg/jtD3cEvAiAa373HZhoDYCA5nLfmtSVKQQvCIEpk74AE4sB+Zl8BquN/oYIRsHKSZi7lCgg==
+truffle-typings@1.0.6:
+  version "1.0.6"
+  resolved "https://registry.yarnpkg.com/truffle-typings/-/truffle-typings-1.0.6.tgz#762ca7cb3a8b78535043b4a11dabbb7b72179189"
+  integrity sha512-oGAXGKCpf3FoxFcf000ICJf67eOFvyX3UgIgXucmECleQ4ymD+fdMkK1Qgniwi6HSBVQS6brdUiXHq8Q5A5PPA==
   dependencies:
     "@types/chai" "^4.1.4"
     "@types/mocha" "^5.2.5"
@@ -1452,10 +1452,10 @@ type-detect@^4.0.0, type-detect@^4.0.5:
   resolved "https://registry.yarnpkg.com/type-detect/-/type-detect-4.0.8.tgz#7646fb5f18871cfbb7749e69bd39a6388eb7450c"
   integrity sha512-0fr/mIH1dlO+x7TlcMy+bIDqKPsw/70tVyeHW787goQjhmqaZe10uwLujubK9q9Lg6Fiho1KUKDYz0Z7k7g5/g==
 
-typechain@0.3.10:
-  version "0.3.10"
-  resolved "https://registry.yarnpkg.com/typechain/-/typechain-0.3.10.tgz#4729896964dee42246ab50e51f5a0da1dca65fe6"
-  integrity sha512-y3sYE2x5HEXBAFNpEuYCDDjSduEr8iK7FeCJ4jfGel2fcx7WqN6WBoId9baKqcQfSEifIUFSCVGzTyZ6dWUPXA==
+typechain@0.3.11:
+  version "0.3.11"
+  resolved "https://registry.yarnpkg.com/typechain/-/typechain-0.3.11.tgz#654d9f5cd01310e0baece8969c364c7041450b73"
+  integrity sha512-Hz2EAc168F3z2uYS9KlDU7aPEi0pRWbuykAvIf9Ke7dRDtqETpdg4G7q5TKTkIdhBRQv4jk48HmSEMc21gB7iA==
   dependencies:
     command-line-args "^4.0.7"
     debug "^3.0.1"

@@ -50,7 +50,7 @@
     "truffle": "5.0.0-next.12",
     "truffle-typings": "1.0.6",
     "ts-node": "7.0.1",
-    "typechain": "0.3.10",
+    "typechain": "0.3.11",
     "typescript": "3.2.2"
   }
 }
