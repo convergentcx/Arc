@@ -2,10 +2,17 @@
 # yarn lockfile v1
 
 
-"@types/bn.js@*", "@types/bn.js@4.11.3":
+"@types/bn.js@*":
   version "4.11.3"
   resolved "https://registry.yarnpkg.com/@types/bn.js/-/bn.js-4.11.3.tgz#0f09e53e98659b007d7019261ddab9178135df38"
   integrity sha512-auZ3vEo3UW8tZc9NhF0MTnutKlf+YhsfC3+dwskFcil/EoqqZF60pGuJ2v2Ae1OJTUp3DJnjOJMqrpkmKB904w==
+  dependencies:
+    "@types/node" "*"
+
+"@types/bn.js@4.11.4":
+  version "4.11.4"
+  resolved "https://registry.yarnpkg.com/@types/bn.js/-/bn.js-4.11.4.tgz#a7bed5bdef9f16b25c92ba27745ab261374787d7"
+  integrity sha512-AO8WW+aRcKWKQAYTfKLzwnpL6U+TfPqS+haRrhCy5ff04Da8WZud3ZgVjspQXaEXJDcTlsjUEVvL39wegDek5w==
   dependencies:
     "@types/node" "*"
 
@@ -1391,10 +1398,10 @@ truffle-resolver@^4.0.4:
     truffle-expect "^0.0.4"
     truffle-provisioner "^0.1.1"
 
-truffle-typings@1.0.5:
-  version "1.0.5"
-  resolved "https://registry.yarnpkg.com/truffle-typings/-/truffle-typings-1.0.5.tgz#511e324397843e27c76451304874267cbadc74cb"
-  integrity sha512-mHkUwuoXBvPMzwg/jtD3cEvAiAa373HZhoDYCA5nLfmtSVKQQvCIEpk74AE4sB+Zl8BquN/oYIRsHKSZi7lCgg==
+truffle-typings@1.0.6:
+  version "1.0.6"
+  resolved "https://registry.yarnpkg.com/truffle-typings/-/truffle-typings-1.0.6.tgz#762ca7cb3a8b78535043b4a11dabbb7b72179189"
+  integrity sha512-oGAXGKCpf3FoxFcf000ICJf67eOFvyX3UgIgXucmECleQ4ymD+fdMkK1Qgniwi6HSBVQS6brdUiXHq8Q5A5PPA==
   dependencies:
     "@types/chai" "^4.1.4"
     "@types/mocha" "^5.2.5"
