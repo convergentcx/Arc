@@ -924,10 +924,10 @@
   resolved "https://registry.yarnpkg.com/@types/underscore/-/underscore-1.8.9.tgz#fef41f800cd23db1b4f262ddefe49cd952d82323"
   integrity sha512-vfzZGgZKRFy7KEWcBGfIFk+h6B+thDCLfkD1exMBMRlUsx2icA+J6y4kAbZs/TjSTeY1duw89QUU133TSzr60Q==
 
-"@types/web3@1.0.14":
-  version "1.0.14"
-  resolved "https://registry.yarnpkg.com/@types/web3/-/web3-1.0.14.tgz#709b700b3eecf7fe9fb09771c4bf484add89912a"
-  integrity sha512-N841xEBVwg0QNin3Zu+Yf7eEKKeJ0MROMc+FvfgtX8r/fwynFhSZVj3VONVcr9QP/Wffq+aggj+4lgrvG3lnFQ==
+"@types/web3@1.0.15":
+  version "1.0.15"
+  resolved "https://registry.yarnpkg.com/@types/web3/-/web3-1.0.15.tgz#673ec522f180cc9ca9d3c856f846da7996c877b9"
+  integrity sha512-LL5w6LCV+GQh+JUefiEfUPrOuzPLsNbRkF1mE9Fr6zppo9xBEXAT2p4ywn1oqhZ4EkAli1DgxeylW4t6Icx3AQ==
   dependencies:
     "@types/bn.js" "*"
     "@types/underscore" "*"

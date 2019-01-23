@@ -48,10 +48,10 @@
   resolved "https://registry.yarnpkg.com/@types/underscore/-/underscore-1.8.9.tgz#fef41f800cd23db1b4f262ddefe49cd952d82323"
   integrity sha512-vfzZGgZKRFy7KEWcBGfIFk+h6B+thDCLfkD1exMBMRlUsx2icA+J6y4kAbZs/TjSTeY1duw89QUU133TSzr60Q==
 
-"@types/web3@1.0.14":
-  version "1.0.14"
-  resolved "https://registry.yarnpkg.com/@types/web3/-/web3-1.0.14.tgz#709b700b3eecf7fe9fb09771c4bf484add89912a"
-  integrity sha512-N841xEBVwg0QNin3Zu+Yf7eEKKeJ0MROMc+FvfgtX8r/fwynFhSZVj3VONVcr9QP/Wffq+aggj+4lgrvG3lnFQ==
+"@types/web3@1.0.15":
+  version "1.0.15"
+  resolved "https://registry.yarnpkg.com/@types/web3/-/web3-1.0.15.tgz#673ec522f180cc9ca9d3c856f846da7996c877b9"
+  integrity sha512-LL5w6LCV+GQh+JUefiEfUPrOuzPLsNbRkF1mE9Fr6zppo9xBEXAT2p4ywn1oqhZ4EkAli1DgxeylW4t6Icx3AQ==
   dependencies:
     "@types/bn.js" "*"
     "@types/underscore" "*"
@@ -1391,10 +1391,10 @@ truffle-resolver@^4.0.4:
     truffle-expect "^0.0.4"
     truffle-provisioner "^0.1.1"
 
-truffle-typings@1.0.5:
-  version "1.0.5"
-  resolved "https://registry.yarnpkg.com/truffle-typings/-/truffle-typings-1.0.5.tgz#511e324397843e27c76451304874267cbadc74cb"
-  integrity sha512-mHkUwuoXBvPMzwg/jtD3cEvAiAa373HZhoDYCA5nLfmtSVKQQvCIEpk74AE4sB+Zl8BquN/oYIRsHKSZi7lCgg==
+truffle-typings@1.0.6:
+  version "1.0.6"
+  resolved "https://registry.yarnpkg.com/truffle-typings/-/truffle-typings-1.0.6.tgz#762ca7cb3a8b78535043b4a11dabbb7b72179189"
+  integrity sha512-oGAXGKCpf3FoxFcf000ICJf67eOFvyX3UgIgXucmECleQ4ymD+fdMkK1Qgniwi6HSBVQS6brdUiXHq8Q5A5PPA==
   dependencies:
     "@types/chai" "^4.1.4"
     "@types/mocha" "^5.2.5"
